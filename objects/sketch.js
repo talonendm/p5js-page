@@ -14,6 +14,7 @@
  */
 var bug;  // Declare object
 var canvas;
+var pmillis;
 
 function setup() {
   // createCanvas(710, 400);
@@ -21,12 +22,22 @@ function setup() {
   canvas = createCanvas(window.innerWidth, window.innerHeight);
   // Create object
   bug = new Jitter();
+  pmillis = 0;
 }
 
 function draw() {
-  background(50, 89, 100);
+  //background(50, 89, 100);
+  stroke(110);
+  rect(0,200,width,height);
+  stroke(0);
   bug.move();
   bug.display();
+  text(frameCount, width/2, height/2);
+  var milli = millis();
+  text(milli - pmillis, width/2, height/2+20);
+  
+  line(frameCount % width,0,(frameCount+1) % width,(milli - pmillis)*4);
+  pmillis = milli;
 }
 
 window.onresize = function() {
