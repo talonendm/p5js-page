@@ -6,7 +6,7 @@ webpage hosting test
 
 Link to page:
 
-https://talonendm.github.io/p5js-page/<folder>
+https://talonendm.github.io/p5js-page/  + folder
 
 
 ## Attachments GIT: 
@@ -14,8 +14,10 @@ https://talonendm.github.io/p5js-page/<folder>
 
 ### commands:
 # -------------------------------------------
+´
 cd C:\talonendm
 ls
+´
 # -------------------------------------------
 
 
