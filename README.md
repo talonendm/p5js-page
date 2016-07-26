@@ -14,10 +14,11 @@ https://talonendm.github.io/p5js-page/  + folder
 
 ### commands:
 # -------------------------------------------
-´
+
 cd C:\talonendm
+
 ls
-´
+
 # -------------------------------------------
 
 
@@ -33,7 +34,9 @@ git clone https://github.com/talonendm/p5js-page.git
 # If changes made at Github: Do this:
 # -------------------------------------------
 git pull origin master
+
 OR (wwW)
+
 git pull origin gh-pages
 # -------------------------------------------
 
@@ -45,7 +48,9 @@ git pull origin gh-pages
 git commit -a -m "my test commit done from Acer 6bG"
 
 git push origin master
+
 OR (www)
+
 git push origin gh-pages
 # -------------------------------------------
 
@@ -59,6 +64,7 @@ mkdir talonendm
 cd C:\talonendm
 
 git config --global user.name "talonendm"
+
 git config --global user.email "<MY EMAIL>"
 
 
