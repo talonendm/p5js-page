@@ -37,7 +37,7 @@ git pull origin master
 
 OR (wwW)
 
-git pull origin gh-pages
+## git pull origin gh-pages use this
 # -------------------------------------------
 
 

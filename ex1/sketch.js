@@ -69,7 +69,7 @@ function mousePressed() {
 function Jitter() {
   this.x = random(width);
   this.y = random(height);
-  this.diameter = random(10, 30);
+  this.diameter = random(10, 100);
   this.speed = 3;
 
   this.move = function() {
