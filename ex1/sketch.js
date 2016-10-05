@@ -121,8 +121,6 @@ function segment(x, y, a, sw) {
   line(0, 0, segLength, 0);
   pop();
 }
-
-
 function link(url, winName, options) {
   winName && open(url, winName, options) || (location = url);
 }
