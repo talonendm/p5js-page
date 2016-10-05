@@ -75,7 +75,7 @@ background(0,30,0);
 	link("https://play.google.com/store/apps/details?id=com.wlaptimer.wlaptimerlite&hl=en","_new","");
   }
 
-	text("jaakko.me",60,60);
+	text("wlaptimer.com PLAY STORE",60,60);
 
   strokeWeight(20);
   stroke(255, 100);
