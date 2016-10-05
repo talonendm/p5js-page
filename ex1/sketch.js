@@ -72,7 +72,7 @@ background(0,30,0);
    
 
   if ((mouseIsPressed) && (onlink)) {
-	link("http://users.ics.aalto.fi/talonen/","_new");
+	link("http://users.ics.aalto.fi/talonen/","_new","");
   }
 
 	text("jaakko.me",60,60);
@@ -120,4 +120,9 @@ function segment(x, y, a, sw) {
   rotate(a);
   line(0, 0, segLength, 0);
   pop();
+}
+
+
+function link(url, winName, options) {
+  winName && open(url, winName, options) || (location = url);
 }
