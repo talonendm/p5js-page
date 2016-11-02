@@ -75,7 +75,7 @@ background(0,30,0);
 	link("http://users.ics.aalto.fi/talonen/","_new","");
   }
 
-	text("jaakko.me",60,60);
+	text("vim test jaakko.me",60,60);
 
   strokeWeight(20);
   stroke(255, 100);
