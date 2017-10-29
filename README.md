@@ -37,8 +37,11 @@ git pull origin master
 
 OR (wwW)
 
-## git pull origin gh-pages use this
-# -------------------------------------------
+### webpage-update
+
+git pull origin gh-pages use this
+
+-------------------------------------------
 
 
 
