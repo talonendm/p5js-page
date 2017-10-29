@@ -1,1 +1,11 @@
 # beer bot
+
+# new folder /folder/file.txt
+cd talonendm/p5js-page/
+git pull origin gh-pages
+
+# create code
+
+git add .
+git commit -a -m "my test"
+git push origin gh-pages
