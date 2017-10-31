@@ -1,126 +1,146 @@
-/*
- * @name Objects
- * @description Create a Jitter class, instantiate an object,
- * and move it around the screen. Adapted from Getting Started with
- * Processing by Casey Reas and Ben Fry.
- 
- * 160720:
- * objects example edited.
- * [ https://github.com/processing/p5.js/issues/193 ]
- * window.onresize added and canvas variable
- * see: ftp://talonen.asuscomm.com/sda1/public/objects/index.html
- 
- 
- */
-var cnv;
-var dx = 700;
-var dy = 400;
-var sb = 5;
-var onlink = false;
-var numSegments = 14,
-  x = [],
-  y = [],
-  angle = [],
-  segLength = 26,
-  targetX, targetY;
+// rain
+// https://p5js.org/reference/
 
-for (var i = 0; i < numSegments; i++) {
-  x[i] = 0;
-  y[i] = 0;
-  angle[i] = 0;
-}
 
-function centerCanvas() {
-  var x = (windowWidth - width) / 2;
-  var y = (windowHeight - height) / 2;
-  cnv.position(x, y);
-}
+// https://www.youtube.com/watch?v=S1TQCi9axzg
+// BASED ON : Guest Tutorial #4: Matrix Digital Rain in p5.js with Emily Xie
+
+// ------------------------------------------------
+// global variable
+// ------------------------------------------------
+// var symbol; // we can access this anywhere
+var symbolSize = 14;
+var i=0;
+var streams = [];
 
 function setup() {
-  cnv = createCanvas(700, 400);
-  centerCanvas();
-  background(255, 0, 200);
-  strokeWeight(20);
-  stroke(255, 100);
+var myCanvas = createCanvas(
+window.innerWidth,
+window.innerHeight,
+);
 
-  x[x.length-1] = width/2; // Set base x-coordinate
-  y[x.length-1] = height/2;  // Set base y-coordinate
+myCanvas.position(0, 0);
+
+// stream = new Stream();
+
+
+var x = 0;
+// we want that random value... var y= 0;
+
+for (var i = 0; i <= width / symbolSize; i++) {
+var stream = new Stream();
+stream.generateSymbols(x,random(-1000,0));
+streams.push(stream);
+x += symbolSize;
+
 }
 
-function windowResized() {
-  centerCanvas();
-}
+stream.generateSymbols();
 
+// symbol = new Symbol(width/2, 0, random(5,10) );
+// symbol.setToRandomSymbol();
+textSize(symbolSize);
+}
+// ------------------------------------------------
+
+// ------------------------------------------------
+// draw()
+// ------------------------------------------------
 function draw() {
+// background(0,0,0);
+background(255,255,255,200); // blurred effect
+// background(0,0,0,3); // blurred effect huge....
+// ellipse(5,6,20,30);
+// symbol.render();
+// i = i + 1;
+// console.log(i);
 
-background(0,30,0);
-	fill(200);
+// stream.render();
 
+// for each item
+streams.forEach(function(stream) {
+stream.render();
+});
 
-  if ((mouseX>60) && (mouseX<160) && (mouseY>53) && (mouseY<68)) {
-	onlink = true;
-  } else {
-	onlink = false;
-  }
-
-  if (onlink) {
-  	strokeWeight(4);
-  } else {
-	strokeWeight(2);
-  }
-  stroke(255, 100);
-   
-
-  if ((mouseIsPressed) && (onlink)) {
-	link("http://users.ics.aalto.fi/talonen/","_new","");
-  }
-
-	text("vim test jaakko.me",60,60);
-
-  strokeWeight(20);
-  stroke(255, 100);
-
-  reachSegment(0, mouseX, mouseY);
-  for(var i=1; i<numSegments; i++) {
-    reachSegment(i, targetX, targetY);
-  }
-  for(var j=x.length-1; j>=1; j--) {
-    positionSegment(j, j-1);
-  }
-  for(var k=0; k<x.length; k++) {
-    segment(x[k], y[k], angle[k], (k+1)*2);
-  }
-
- stroke(0);
- fill(0);
- rect(0,0,dx,sb);
- rect(0,dy-sb,dx,dy);
- rect(0,0,sb,dy);
- rect(dx-sb,0,dx,dy);
 
 }
 
-function positionSegment(a, b) {
-  x[b] = x[a] + cos(angle[a]) * segLength;
-  y[b] = y[a] + sin(angle[a]) * segLength;
+// ------------------------------------------------
+// SYMBOL
+// ------------------------------------------------
+function Symbol(x,y,speed,first) {
+// properties
+this.x = x;
+this.y = y;
+this.value;
+this.speed = speed;
+this.switchInterval = round(random(20,70)); // each symbol has different interval
+this.first = first; // first property - is a first in the stream
+// ------------------------------------------------
+this.setToRandomSymbol = function() {
+if (frameCount % this.switchInterval == 0) {
+this.value = String.fromCharCode(
+0x30A0 + round(random(0,96))
+);
+}
+}
+// ------------------------------------------------
+// move characters - rain function
+this.rain = function() {
+if (this.y >= height) {
+this.y = 0;
+
+} else {
+this.y += this.speed;
+}
+// the same as above (): this.y = (this.y >= height) ? 0 : this.y += this.y + speed;
+}
+}
+// ------------------------------------------------
+function Stream() {
+
+this.symbols = [];
+// each stream should know how many symbols it has
+this.totalSymbols = round(random(5,30));
+this.speed = random(12,20);
+
+// creates symbols
+this.generateSymbols = function(x,y) {
+
+var first = round(random(0,4)) == 1; // true; // so, instead of setting always true, have equation false / true
+// loop()
+
+for (var i = 0; i <= this.totalSymbols; i++) {
+symbol = new Symbol(x,y,this.speed, first);
+symbol.setToRandomSymbol();
+this.symbols.push(symbol); // push to symbol array
+y -=symbolSize; // below each symbol
+first = false;
+}
 }
 
-function reachSegment(i, xin, yin) {
-  var dx = xin - x[i];
-  var dy = yin - y[i];
-  angle[i] = atan2(dy, dx);
-  targetX = xin - cos(angle[i]) * segLength;
-  targetY = yin - sin(angle[i]) * segLength;
+this.render = function() {
+
+this.symbols.forEach(function(symbol) {
+// ------------------------------------------------
+// this is called every round.. and
+if (symbol.first) {
+fill(180,255,180);
+fill(50,120,60);
+
+} else {
+fill(0,255,70);
+fill(50,255,130);
 }
 
-function segment(x, y, a, sw) {
-  strokeWeight(sw);
-  push();
-  translate(x, y);
-  rotate(a);
-  line(0, 0, segLength, 0);
-  pop();
+text(symbol.value, symbol.x, symbol.y);
+symbol.rain();
+symbol.setToRandomSymbol(); // changes symbol .. 60 frames / second
+
+
 }
-function link(url, winName, options) {
-  winName && open(url, winName, options) || (location = url);
+)
 }
+
+}
+
