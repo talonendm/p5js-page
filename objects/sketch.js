@@ -19,7 +19,7 @@ var pmillis;
 function setup() {
   // createCanvas(710, 400);
 
-  canvas = createCanvas(window.innerWidth, window.innerHeight);
+  const canvas = createCanvas(window.innerWidth, window.innerHeight);
   canvas.parent('sketch-holder'); // https://happycoding.io/examples/p5js/fireworks
   // Create object
   bug = new Jitter();
